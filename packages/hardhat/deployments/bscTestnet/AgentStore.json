@@ -1,0 +1,874 @@
+{
+  "address": "0xA884fcEd9862E536861577C9eC216518B3770Fbc",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_identityRegistry",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_reputationRegistry",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_validationRegistry",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "agentId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "AgentListed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "agentId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        }
+      ],
+      "name": "AgentUnlisted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "agentId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "user",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "AgentUsed",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "allListedAgents",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "agentId",
+          "type": "uint256"
+        }
+      ],
+      "name": "callAgent",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "agentId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getAgentFullInfo",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "agentId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "name",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "description",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "link",
+              "type": "string"
+            },
+            {
+              "internalType": "enum AgentStore.RequestMethod",
+              "name": "method",
+              "type": "uint8"
+            },
+            {
+              "internalType": "string",
+              "name": "requestParams",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "price",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "listed",
+              "type": "bool"
+            },
+            {
+              "internalType": "uint256",
+              "name": "listedAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "usageCount",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct AgentStore.AgentListing",
+          "name": "listing",
+          "type": "tuple"
+        },
+        {
+          "components": [
+            {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "metadataURI",
+              "type": "string"
+            },
+            {
+              "internalType": "uint256",
+              "name": "createdAt",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "active",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct IdentityRegistry.AgentIdentity",
+          "name": "identity",
+          "type": "tuple"
+        },
+        {
+          "internalType": "uint256",
+          "name": "averageRating",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "feedbackCount",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAllListedAgents",
+      "outputs": [
+        {
+          "internalType": "uint256[]",
+          "name": "agentIds",
+          "type": "uint256[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "identityRegistry",
+      "outputs": [
+        {
+          "internalType": "contract IdentityRegistry",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "listings",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "agentId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "link",
+          "type": "string"
+        },
+        {
+          "internalType": "enum AgentStore.RequestMethod",
+          "name": "method",
+          "type": "uint8"
+        },
+        {
+          "internalType": "string",
+          "name": "requestParams",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "listed",
+          "type": "bool"
+        },
+        {
+          "internalType": "uint256",
+          "name": "listedAt",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "usageCount",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "agentId",
+          "type": "uint256"
+        }
+      ],
+      "name": "recordUsage",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "link",
+          "type": "string"
+        },
+        {
+          "internalType": "enum AgentStore.RequestMethod",
+          "name": "method",
+          "type": "uint8"
+        },
+        {
+          "internalType": "string",
+          "name": "requestParams",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "registerAndListAgent",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "agentId",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "reputationRegistry",
+      "outputs": [
+        {
+          "internalType": "contract ReputationRegistry",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "searchIndex",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "agentId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint8",
+          "name": "rating",
+          "type": "uint8"
+        },
+        {
+          "internalType": "string",
+          "name": "comment",
+          "type": "string"
+        }
+      ],
+      "name": "submitRating",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "agentId",
+          "type": "uint256"
+        }
+      ],
+      "name": "unlistAgent",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "agentId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "link",
+          "type": "string"
+        },
+        {
+          "internalType": "enum AgentStore.RequestMethod",
+          "name": "method",
+          "type": "uint8"
+        },
+        {
+          "internalType": "string",
+          "name": "requestParams",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "name": "updateAgent",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "validationRegistry",
+      "outputs": [
+        {
+          "internalType": "contract ValidationRegistry",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x8793aeaba19278c3c878ac0d0772e48edd2e148d03c4bdfb15174e7e8f3dffd8",
+  "receipt": {
+    "to": null,
+    "from": "0x74cC09316deab81EE874839e1DA9E84Ec066369C",
+    "contractAddress": "0xA884fcEd9862E536861577C9eC216518B3770Fbc",
+    "transactionIndex": 0,
+    "gasUsed": "1665490",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x3ae7c23fa92de8e89502779996051a6b0fb2bcee7421ebd2b1883b8409ea38ca",
+    "transactionHash": "0x8793aeaba19278c3c878ac0d0772e48edd2e148d03c4bdfb15174e7e8f3dffd8",
+    "logs": [],
+    "blockNumber": 71023925,
+    "cumulativeGasUsed": "1665490",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    "0x6d5c277c8AFB1701CcC9301Dcf86C55E5040A544",
+    "0x44da195b78E0e1843ffDd651Bd713c6aE68d165a",
+    "0x8558EcBb899c5eFF1d8fbbc7B4E79D09428302E4"
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "4906588c3d29cac5b53c246599aa59bc",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_identityRegistry\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_reputationRegistry\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_validationRegistry\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"agentId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"AgentListed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"agentId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"AgentUnlisted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"agentId\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"AgentUsed\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"allListedAgents\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"agentId\",\"type\":\"uint256\"}],\"name\":\"callAgent\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"agentId\",\"type\":\"uint256\"}],\"name\":\"getAgentFullInfo\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"agentId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"link\",\"type\":\"string\"},{\"internalType\":\"enum AgentStore.RequestMethod\",\"name\":\"method\",\"type\":\"uint8\"},{\"internalType\":\"string\",\"name\":\"requestParams\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"listed\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"listedAt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"usageCount\",\"type\":\"uint256\"}],\"internalType\":\"struct AgentStore.AgentListing\",\"name\":\"listing\",\"type\":\"tuple\"},{\"components\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"metadataURI\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"createdAt\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"active\",\"type\":\"bool\"}],\"internalType\":\"struct IdentityRegistry.AgentIdentity\",\"name\":\"identity\",\"type\":\"tuple\"},{\"internalType\":\"uint256\",\"name\":\"averageRating\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"feedbackCount\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAllListedAgents\",\"outputs\":[{\"internalType\":\"uint256[]\",\"name\":\"agentIds\",\"type\":\"uint256[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"identityRegistry\",\"outputs\":[{\"internalType\":\"contract IdentityRegistry\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"listings\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"agentId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"link\",\"type\":\"string\"},{\"internalType\":\"enum AgentStore.RequestMethod\",\"name\":\"method\",\"type\":\"uint8\"},{\"internalType\":\"string\",\"name\":\"requestParams\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"listed\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"listedAt\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"usageCount\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"agentId\",\"type\":\"uint256\"}],\"name\":\"recordUsage\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"link\",\"type\":\"string\"},{\"internalType\":\"enum AgentStore.RequestMethod\",\"name\":\"method\",\"type\":\"uint8\"},{\"internalType\":\"string\",\"name\":\"requestParams\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"}],\"name\":\"registerAndListAgent\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"agentId\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"reputationRegistry\",\"outputs\":[{\"internalType\":\"contract ReputationRegistry\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"searchIndex\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"agentId\",\"type\":\"uint256\"},{\"internalType\":\"uint8\",\"name\":\"rating\",\"type\":\"uint8\"},{\"internalType\":\"string\",\"name\":\"comment\",\"type\":\"string\"}],\"name\":\"submitRating\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"agentId\",\"type\":\"uint256\"}],\"name\":\"unlistAgent\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"agentId\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"name\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"},{\"internalType\":\"string\",\"name\":\"link\",\"type\":\"string\"},{\"internalType\":\"enum AgentStore.RequestMethod\",\"name\":\"method\",\"type\":\"uint8\"},{\"internalType\":\"string\",\"name\":\"requestParams\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"price\",\"type\":\"uint256\"}],\"name\":\"updateAgent\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"validationRegistry\",\"outputs\":[{\"internalType\":\"contract ValidationRegistry\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"\\u63d0\\u4f9b\\u5b8c\\u6574\\u7684 Agent \\u6ce8\\u518c\\u3001\\u53d1\\u73b0\\u3001\\u8bc4\\u4ef7\\u548c\\u7ba1\\u7406\\u529f\\u80fd\",\"kind\":\"dev\",\"methods\":{\"callAgent(uint256)\":{\"params\":{\"agentId\":\"Agent ID\"}},\"getAgentFullInfo(uint256)\":{\"params\":{\"agentId\":\"Agent ID\"},\"returns\":{\"averageRating\":\"\\u5e73\\u5747\\u8bc4\\u5206\\uff08\\u653e\\u5927 1000 \\u500d\\uff09\",\"feedbackCount\":\"\\u53cd\\u9988\\u6570\\u91cf\",\"identity\":\"\\u8eab\\u4efd\\u4fe1\\u606f\",\"listing\":\"\\u4e0a\\u67b6\\u4fe1\\u606f\"}},\"getAllListedAgents()\":{\"returns\":{\"agentIds\":\"Agent ID \\u6570\\u7ec4\"}},\"recordUsage(uint256)\":{\"params\":{\"agentId\":\"Agent ID\"}},\"registerAndListAgent(string,string,string,uint8,string,uint256)\":{\"params\":{\"description\":\"\\u7b80\\u4ecb\",\"link\":\"\\u94fe\\u63a5\",\"method\":\"\\u8bf7\\u6c42\\u65b9\\u5f0f\",\"name\":\"Agent \\u540d\\u79f0\",\"price\":\"\\u4ef7\\u683c\\uff08\\u4ee5 wei \\u4e3a\\u5355\\u4f4d\\uff09\",\"requestParams\":\"\\u8bf7\\u6c42\\u53c2\\u6570\\uff08JSON \\u5b57\\u7b26\\u4e32\\uff09\"},\"returns\":{\"agentId\":\"\\u65b0\\u521b\\u5efa\\u7684 Agent ID\"}},\"submitRating(uint256,uint8,string)\":{\"params\":{\"agentId\":\"Agent ID\",\"comment\":\"\\u8bc4\\u4ef7\\u5185\\u5bb9\",\"rating\":\"\\u8bc4\\u5206 (1-5)\"}},\"unlistAgent(uint256)\":{\"params\":{\"agentId\":\"Agent ID\"}},\"updateAgent(uint256,string,string,string,uint8,string,uint256)\":{\"params\":{\"agentId\":\"Agent ID\",\"description\":\"\\u7b80\\u4ecb\",\"link\":\"\\u94fe\\u63a5\",\"method\":\"\\u8bf7\\u6c42\\u65b9\\u5f0f\",\"name\":\"Agent \\u540d\\u79f0\",\"price\":\"\\u4ef7\\u683c\",\"requestParams\":\"\\u8bf7\\u6c42\\u53c2\\u6570\"}}},\"title\":\"AgentStore\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"callAgent(uint256)\":{\"notice\":\"\\u8c03\\u7528 Agent\\uff08\\u652f\\u4ed8\\u8d39\\u7528\\u5e76\\u8bb0\\u5f55\\u4f7f\\u7528\\uff09\"},\"getAgentFullInfo(uint256)\":{\"notice\":\"\\u83b7\\u53d6 Agent \\u5b8c\\u6574\\u4fe1\\u606f\"},\"getAllListedAgents()\":{\"notice\":\"\\u83b7\\u53d6\\u6240\\u6709\\u4e0a\\u67b6\\u7684 Agents\"},\"recordUsage(uint256)\":{\"notice\":\"\\u8bb0\\u5f55 Agent \\u4f7f\\u7528\"},\"registerAndListAgent(string,string,string,uint8,string,uint256)\":{\"notice\":\"\\u6ce8\\u518c\\u5e76\\u4e0a\\u67b6 Agent\"},\"submitRating(uint256,uint8,string)\":{\"notice\":\"\\u63d0\\u4ea4\\u8bc4\\u4ef7\"},\"unlistAgent(uint256)\":{\"notice\":\"\\u4e0b\\u67b6 Agent\"},\"updateAgent(uint256,string,string,string,uint8,string,uint256)\":{\"notice\":\"\\u66f4\\u65b0 Agent \\u4fe1\\u606f\"}},\"notice\":\"Agent \\u5546\\u5e97\\u4e3b\\u5408\\u7ea6\\uff0c\\u96c6\\u6210 EIP-8004 \\u529f\\u80fd\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/AgentStore.sol\":\"AgentStore\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/AgentStore.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0 <0.9.0;\\n\\nimport \\\"./EIP8004/IdentityRegistry.sol\\\";\\nimport \\\"./EIP8004/ReputationRegistry.sol\\\";\\nimport \\\"./EIP8004/ValidationRegistry.sol\\\";\\n\\n/**\\n * @title AgentStore\\n * @notice Agent \\u5546\\u5e97\\u4e3b\\u5408\\u7ea6\\uff0c\\u96c6\\u6210 EIP-8004 \\u529f\\u80fd\\n * @dev \\u63d0\\u4f9b\\u5b8c\\u6574\\u7684 Agent \\u6ce8\\u518c\\u3001\\u53d1\\u73b0\\u3001\\u8bc4\\u4ef7\\u548c\\u7ba1\\u7406\\u529f\\u80fd\\n */\\ncontract AgentStore {\\n    IdentityRegistry public identityRegistry;\\n    ReputationRegistry public reputationRegistry;\\n    ValidationRegistry public validationRegistry;\\n\\n    // \\u8bf7\\u6c42\\u65b9\\u5f0f\\u679a\\u4e3e\\n    enum RequestMethod {\\n        GET,\\n        POST,\\n        PUT,\\n        DELETE\\n    }\\n\\n    struct AgentListing {\\n        uint256 agentId;           // Agent ID\\n        string name;               // Agent \\u540d\\u79f0\\n        string description;        // \\u7b80\\u4ecb\\n        string link;               // \\u94fe\\u63a5\\n        RequestMethod method;       // \\u8bf7\\u6c42\\u65b9\\u5f0f\\n        string requestParams;      // \\u8bf7\\u6c42\\u53c2\\u6570\\uff08JSON \\u5b57\\u7b26\\u4e32\\uff09\\n        uint256 price;             // \\u4ef7\\u683c\\uff08\\u4ee5 wei \\u4e3a\\u5355\\u4f4d\\uff09\\n        address owner;             // \\u6240\\u6709\\u8005\\n        bool listed;               // \\u662f\\u5426\\u4e0a\\u67b6\\n        uint256 listedAt;          // \\u4e0a\\u67b6\\u65f6\\u95f4\\n        uint256 usageCount;        // \\u4f7f\\u7528\\u6b21\\u6570\\n    }\\n\\n    // Agent ID => Listing\\n    mapping(uint256 => AgentListing) public listings;\\n    \\n    \\n    // \\u6240\\u6709\\u4e0a\\u67b6\\u7684 Agent IDs\\n    uint256[] public allListedAgents;\\n    \\n    // \\u641c\\u7d22\\u5173\\u952e\\u8bcd => Agent IDs\\uff08\\u7b80\\u5316\\u7248\\uff0c\\u5b9e\\u9645\\u53ef\\u7528\\u94fe\\u4e0b\\u7d22\\u5f15\\uff09\\n    mapping(string => uint256[]) public searchIndex;\\n\\n    // \\u4e8b\\u4ef6\\n    event AgentListed(\\n        uint256 indexed agentId,\\n        string name,\\n        address indexed owner,\\n        uint256 price,\\n        uint256 timestamp\\n    );\\n    \\n    event AgentUnlisted(\\n        uint256 indexed agentId,\\n        address indexed owner\\n    );\\n    \\n    event AgentUsed(\\n        uint256 indexed agentId,\\n        address indexed user,\\n        uint256 timestamp\\n    );\\n\\n    constructor(\\n        address _identityRegistry,\\n        address _reputationRegistry,\\n        address _validationRegistry\\n    ) {\\n        identityRegistry = IdentityRegistry(_identityRegistry);\\n        reputationRegistry = ReputationRegistry(_reputationRegistry);\\n        validationRegistry = ValidationRegistry(_validationRegistry);\\n    }\\n\\n    /**\\n     * @notice \\u6ce8\\u518c\\u5e76\\u4e0a\\u67b6 Agent\\n     * @param name Agent \\u540d\\u79f0\\n     * @param description \\u7b80\\u4ecb\\n     * @param link \\u94fe\\u63a5\\n     * @param method \\u8bf7\\u6c42\\u65b9\\u5f0f\\n     * @param requestParams \\u8bf7\\u6c42\\u53c2\\u6570\\uff08JSON \\u5b57\\u7b26\\u4e32\\uff09\\n     * @param price \\u4ef7\\u683c\\uff08\\u4ee5 wei \\u4e3a\\u5355\\u4f4d\\uff09\\n     * @return agentId \\u65b0\\u521b\\u5efa\\u7684 Agent ID\\n     */\\n    function registerAndListAgent(\\n        string memory name,\\n        string memory description,\\n        string memory link,\\n        RequestMethod method,\\n        string memory requestParams,\\n        uint256 price\\n    ) public returns (uint256 agentId) {\\n        // \\u6ce8\\u518c\\u8eab\\u4efd\\uff08\\u4f7f\\u7528\\u94fe\\u63a5\\u4f5c\\u4e3a metadataURI\\uff09\\n        agentId = identityRegistry.registerAgent(link);\\n        \\n        // \\u521b\\u5efa\\u4e0a\\u67b6\\u4fe1\\u606f\\n        listings[agentId] = AgentListing({\\n            agentId: agentId,\\n            name: name,\\n            description: description,\\n            link: link,\\n            method: method,\\n            requestParams: requestParams,\\n            price: price,\\n            owner: msg.sender,\\n            listed: true,\\n            listedAt: block.timestamp,\\n            usageCount: 0\\n        });\\n        \\n        allListedAgents.push(agentId);\\n        \\n        emit AgentListed(agentId, name, msg.sender, price, block.timestamp);\\n        \\n        return agentId;\\n    }\\n\\n    /**\\n     * @notice \\u66f4\\u65b0 Agent \\u4fe1\\u606f\\n     * @param agentId Agent ID\\n     * @param name Agent \\u540d\\u79f0\\n     * @param description \\u7b80\\u4ecb\\n     * @param link \\u94fe\\u63a5\\n     * @param method \\u8bf7\\u6c42\\u65b9\\u5f0f\\n     * @param requestParams \\u8bf7\\u6c42\\u53c2\\u6570\\n     * @param price \\u4ef7\\u683c\\n     */\\n    function updateAgent(\\n        uint256 agentId,\\n        string memory name,\\n        string memory description,\\n        string memory link,\\n        RequestMethod method,\\n        string memory requestParams,\\n        uint256 price\\n    ) public {\\n        require(listings[agentId].owner == msg.sender, \\\"AgentStore: Not owner\\\");\\n        require(listings[agentId].listed, \\\"AgentStore: Not listed\\\");\\n        \\n        listings[agentId].name = name;\\n        listings[agentId].description = description;\\n        listings[agentId].link = link;\\n        listings[agentId].method = method;\\n        listings[agentId].requestParams = requestParams;\\n        listings[agentId].price = price;\\n    }\\n\\n    /**\\n     * @notice \\u4e0b\\u67b6 Agent\\n     * @param agentId Agent ID\\n     */\\n    function unlistAgent(uint256 agentId) public {\\n        require(listings[agentId].owner == msg.sender, \\\"AgentStore: Not owner\\\");\\n        require(listings[agentId].listed, \\\"AgentStore: Not listed\\\");\\n        \\n        listings[agentId].listed = false;\\n        \\n        emit AgentUnlisted(agentId, msg.sender);\\n    }\\n\\n    /**\\n     * @notice \\u8bb0\\u5f55 Agent \\u4f7f\\u7528\\n     * @param agentId Agent ID\\n     */\\n    function recordUsage(uint256 agentId) public {\\n        require(listings[agentId].listed, \\\"AgentStore: Agent not listed\\\");\\n        listings[agentId].usageCount += 1;\\n        emit AgentUsed(agentId, msg.sender, block.timestamp);\\n    }\\n\\n    /**\\n     * @notice \\u63d0\\u4ea4\\u8bc4\\u4ef7\\n     * @param agentId Agent ID\\n     * @param rating \\u8bc4\\u5206 (1-5)\\n     * @param comment \\u8bc4\\u4ef7\\u5185\\u5bb9\\n     */\\n    function submitRating(\\n        uint256 agentId,\\n        uint8 rating,\\n        string memory comment\\n    ) public {\\n        reputationRegistry.submitFeedback(agentId, rating, comment);\\n    }\\n\\n    /**\\n     * @notice \\u83b7\\u53d6\\u6240\\u6709\\u4e0a\\u67b6\\u7684 Agents\\n     * @return agentIds Agent ID \\u6570\\u7ec4\\n     */\\n    function getAllListedAgents() public view returns (uint256[] memory agentIds) {\\n        return allListedAgents;\\n    }\\n\\n    /**\\n     * @notice \\u8c03\\u7528 Agent\\uff08\\u652f\\u4ed8\\u8d39\\u7528\\u5e76\\u8bb0\\u5f55\\u4f7f\\u7528\\uff09\\n     * @param agentId Agent ID\\n     */\\n    function callAgent(uint256 agentId) public payable {\\n        AgentListing storage listing = listings[agentId];\\n        require(listing.listed, \\\"AgentStore: Agent not listed\\\");\\n        require(msg.value >= listing.price, \\\"AgentStore: Insufficient payment\\\");\\n        \\n        // \\u5982\\u679c\\u652f\\u4ed8\\u8d85\\u8fc7\\u4ef7\\u683c\\uff0c\\u9000\\u8fd8\\u591a\\u4f59\\u90e8\\u5206\\n        if (msg.value > listing.price) {\\n            payable(msg.sender).transfer(msg.value - listing.price);\\n        }\\n        \\n        // \\u5c06\\u8d39\\u7528\\u8f6c\\u7ed9\\u6240\\u6709\\u8005\\n        payable(listing.owner).transfer(listing.price);\\n        \\n        // \\u8bb0\\u5f55\\u4f7f\\u7528\\n        listing.usageCount += 1;\\n        \\n        emit AgentUsed(agentId, msg.sender, block.timestamp);\\n    }\\n\\n    /**\\n     * @notice \\u83b7\\u53d6 Agent \\u5b8c\\u6574\\u4fe1\\u606f\\n     * @param agentId Agent ID\\n     * @return listing \\u4e0a\\u67b6\\u4fe1\\u606f\\n     * @return identity \\u8eab\\u4efd\\u4fe1\\u606f\\n     * @return averageRating \\u5e73\\u5747\\u8bc4\\u5206\\uff08\\u653e\\u5927 1000 \\u500d\\uff09\\n     * @return feedbackCount \\u53cd\\u9988\\u6570\\u91cf\\n     */\\n    function getAgentFullInfo(uint256 agentId) public view returns (\\n        AgentListing memory listing,\\n        IdentityRegistry.AgentIdentity memory identity,\\n        uint256 averageRating,\\n        uint256 feedbackCount\\n    ) {\\n        listing = listings[agentId];\\n        identity = identityRegistry.getAgentIdentity(agentId);\\n        (, uint256 avgRating, uint256 count) = reputationRegistry.getReputation(agentId);\\n        averageRating = avgRating;\\n        feedbackCount = count;\\n    }\\n}\\n\\n\",\"keccak256\":\"0x2b1ac874b7cf74b9cce57b2cf8f4f2d26216568a3b289deaa9ba2f05028d91c1\",\"license\":\"MIT\"},\"contracts/EIP8004/IdentityRegistry.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0 <0.9.0;\\n\\n/**\\n * @title IdentityRegistry\\n * @notice EIP-8004 \\u8eab\\u4efd\\u6ce8\\u518c\\u8868\\n * @dev \\u4e3a\\u6bcf\\u4e2a Agent \\u63d0\\u4f9b\\u552f\\u4e00\\u7684\\u94fe\\u4e0a\\u8eab\\u4efd\\u6807\\u8bc6\\n */\\ncontract IdentityRegistry {\\n    struct AgentIdentity {\\n        address owner;           // Agent \\u6240\\u6709\\u8005\\u5730\\u5740\\n        string metadataURI;      // IPFS \\u5143\\u6570\\u636e URI\\n        uint256 createdAt;        // \\u521b\\u5efa\\u65f6\\u95f4\\u6233\\n        bool active;             // \\u662f\\u5426\\u6fc0\\u6d3b\\n    }\\n\\n    // Agent ID => Agent Identity\\n    mapping(uint256 => AgentIdentity) public identities;\\n    \\n    // Owner => Agent IDs\\n    mapping(address => uint256[]) public ownerAgents;\\n    \\n    // \\u4e0b\\u4e00\\u4e2a Agent ID\\n    uint256 private nextAgentId = 1;\\n    \\n    // \\u4e8b\\u4ef6\\n    event AgentRegistered(\\n        uint256 indexed agentId,\\n        address indexed owner,\\n        string metadataURI,\\n        uint256 timestamp\\n    );\\n    \\n    event AgentUpdated(\\n        uint256 indexed agentId,\\n        address indexed owner,\\n        string newMetadataURI\\n    );\\n    \\n    event AgentDeactivated(\\n        uint256 indexed agentId,\\n        address indexed owner\\n    );\\n\\n    /**\\n     * @notice \\u6ce8\\u518c\\u65b0\\u7684 Agent \\u8eab\\u4efd\\n     * @param metadataURI IPFS \\u5143\\u6570\\u636e URI\\n     * @return agentId \\u65b0\\u521b\\u5efa\\u7684 Agent ID\\n     */\\n    function registerAgent(string memory metadataURI) public returns (uint256 agentId) {\\n        agentId = nextAgentId++;\\n        \\n        identities[agentId] = AgentIdentity({\\n            owner: msg.sender,\\n            metadataURI: metadataURI,\\n            createdAt: block.timestamp,\\n            active: true\\n        });\\n        \\n        ownerAgents[msg.sender].push(agentId);\\n        \\n        emit AgentRegistered(agentId, msg.sender, metadataURI, block.timestamp);\\n        \\n        return agentId;\\n    }\\n\\n    /**\\n     * @notice \\u66f4\\u65b0 Agent \\u5143\\u6570\\u636e\\n     * @param agentId Agent ID\\n     * @param newMetadataURI \\u65b0\\u7684\\u5143\\u6570\\u636e URI\\n     */\\n    function updateAgentMetadata(uint256 agentId, string memory newMetadataURI) public {\\n        require(identities[agentId].owner == msg.sender, \\\"IdentityRegistry: Not owner\\\");\\n        require(identities[agentId].active, \\\"IdentityRegistry: Agent inactive\\\");\\n        \\n        identities[agentId].metadataURI = newMetadataURI;\\n        \\n        emit AgentUpdated(agentId, msg.sender, newMetadataURI);\\n    }\\n\\n    /**\\n     * @notice \\u505c\\u7528 Agent\\n     * @param agentId Agent ID\\n     */\\n    function deactivateAgent(uint256 agentId) public {\\n        require(identities[agentId].owner == msg.sender, \\\"IdentityRegistry: Not owner\\\");\\n        require(identities[agentId].active, \\\"IdentityRegistry: Already inactive\\\");\\n        \\n        identities[agentId].active = false;\\n        \\n        emit AgentDeactivated(agentId, msg.sender);\\n    }\\n\\n    /**\\n     * @notice \\u83b7\\u53d6 Agent \\u8eab\\u4efd\\u4fe1\\u606f\\n     * @param agentId Agent ID\\n     * @return identity Agent \\u8eab\\u4efd\\u7ed3\\u6784\\n     */\\n    function getAgentIdentity(uint256 agentId) public view returns (AgentIdentity memory identity) {\\n        return identities[agentId];\\n    }\\n\\n    /**\\n     * @notice \\u83b7\\u53d6\\u6240\\u6709\\u8005\\u62e5\\u6709\\u7684\\u6240\\u6709 Agent IDs\\n     * @param owner \\u6240\\u6709\\u8005\\u5730\\u5740\\n     * @return agentIds Agent ID \\u6570\\u7ec4\\n     */\\n    function getOwnerAgents(address owner) public view returns (uint256[] memory agentIds) {\\n        return ownerAgents[owner];\\n    }\\n\\n    /**\\n     * @notice \\u68c0\\u67e5 Agent \\u662f\\u5426\\u5b58\\u5728\\u4e14\\u6fc0\\u6d3b\\n     * @param agentId Agent ID\\n     * @return exists \\u662f\\u5426\\u5b58\\u5728\\n     */\\n    function agentExists(uint256 agentId) public view returns (bool exists) {\\n        return identities[agentId].owner != address(0) && identities[agentId].active;\\n    }\\n}\\n\\n\",\"keccak256\":\"0x41ef910e0c59173e9b3297e77cef0e4fcbe48c9c03dd234a7c75472ad3648cb0\",\"license\":\"MIT\"},\"contracts/EIP8004/ReputationRegistry.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0 <0.9.0;\\n\\n/**\\n * @title ReputationRegistry\\n * @notice EIP-8004 \\u58f0\\u8a89\\u6ce8\\u518c\\u8868\\n * @dev \\u7ba1\\u7406 Agent \\u7684\\u58f0\\u8a89\\u3001\\u8bc4\\u5206\\u548c\\u53cd\\u9988\\n */\\ncontract ReputationRegistry {\\n    struct Feedback {\\n        address reviewer;        // \\u8bc4\\u4ef7\\u8005\\u5730\\u5740\\n        uint8 rating;            // \\u8bc4\\u5206 (1-5)\\n        string comment;          // \\u8bc4\\u4ef7\\u5185\\u5bb9\\n        uint256 timestamp;       // \\u8bc4\\u4ef7\\u65f6\\u95f4\\n    }\\n\\n    struct ReputationScore {\\n        uint256 totalRatings;    // \\u603b\\u8bc4\\u4ef7\\u6570\\n        uint256 sumRatings;      // \\u8bc4\\u5206\\u603b\\u548c\\n        uint256 averageRating;   // \\u5e73\\u5747\\u8bc4\\u5206\\uff08\\u4ee5 1000 \\u4e3a\\u5355\\u4f4d\\uff0c\\u4f8b\\u5982 3500 = 3.5\\uff09\\n        uint256 feedbackCount;   // \\u53cd\\u9988\\u6570\\u91cf\\n    }\\n\\n    // Agent ID => Reputation Score\\n    mapping(uint256 => ReputationScore) public reputations;\\n    \\n    // Agent ID => Feedback[]\\n    mapping(uint256 => Feedback[]) public feedbacks;\\n    \\n    // Agent ID => Reviewer => \\u662f\\u5426\\u5df2\\u8bc4\\u4ef7\\n    mapping(uint256 => mapping(address => bool)) public hasReviewed;\\n\\n    // \\u4e8b\\u4ef6\\n    event FeedbackSubmitted(\\n        uint256 indexed agentId,\\n        address indexed reviewer,\\n        uint8 rating,\\n        string comment,\\n        uint256 timestamp\\n    );\\n\\n    /**\\n     * @notice \\u63d0\\u4ea4\\u5bf9 Agent \\u7684\\u53cd\\u9988\\n     * @param agentId Agent ID\\n     * @param rating \\u8bc4\\u5206 (1-5)\\n     * @param comment \\u8bc4\\u4ef7\\u5185\\u5bb9\\n     */\\n    function submitFeedback(\\n        uint256 agentId,\\n        uint8 rating,\\n        string memory comment\\n    ) public {\\n        require(rating >= 1 && rating <= 5, \\\"ReputationRegistry: Invalid rating\\\");\\n        require(!hasReviewed[agentId][msg.sender], \\\"ReputationRegistry: Already reviewed\\\");\\n        \\n        ReputationScore storage reputation = reputations[agentId];\\n        \\n        // \\u66f4\\u65b0\\u58f0\\u8a89\\u8bc4\\u5206\\n        reputation.totalRatings += 1;\\n        reputation.sumRatings += rating;\\n        reputation.averageRating = (reputation.sumRatings * 1000) / reputation.totalRatings;\\n        reputation.feedbackCount += 1;\\n        \\n        // \\u6dfb\\u52a0\\u53cd\\u9988\\n        feedbacks[agentId].push(Feedback({\\n            reviewer: msg.sender,\\n            rating: rating,\\n            comment: comment,\\n            timestamp: block.timestamp\\n        }));\\n        \\n        hasReviewed[agentId][msg.sender] = true;\\n        \\n        emit FeedbackSubmitted(agentId, msg.sender, rating, comment, block.timestamp);\\n    }\\n\\n    /**\\n     * @notice \\u83b7\\u53d6 Agent \\u7684\\u58f0\\u8a89\\u8bc4\\u5206\\n     * @param agentId Agent ID\\n     * @return totalRatings \\u603b\\u8bc4\\u4ef7\\u6570\\n     * @return averageRating \\u5e73\\u5747\\u8bc4\\u5206\\uff08\\u653e\\u5927 1000 \\u500d\\uff09\\n     * @return feedbackCount \\u53cd\\u9988\\u6570\\u91cf\\n     */\\n    function getReputation(uint256 agentId) public view returns (\\n        uint256 totalRatings,\\n        uint256 averageRating,\\n        uint256 feedbackCount\\n    ) {\\n        ReputationScore memory reputation = reputations[agentId];\\n        return (\\n            reputation.totalRatings,\\n            reputation.averageRating,\\n            reputation.feedbackCount\\n        );\\n    }\\n\\n    /**\\n     * @notice \\u83b7\\u53d6 Agent \\u7684\\u6240\\u6709\\u53cd\\u9988\\n     * @param agentId Agent ID\\n     * @return feedbacksArray \\u53cd\\u9988\\u6570\\u7ec4\\n     */\\n    function getFeedbacks(uint256 agentId) public view returns (Feedback[] memory feedbacksArray) {\\n        return feedbacks[agentId];\\n    }\\n\\n    /**\\n     * @notice \\u83b7\\u53d6 Agent \\u7684\\u5e73\\u5747\\u8bc4\\u5206\\uff081-5\\uff09\\n     * @param agentId Agent ID\\n     * @return rating \\u5e73\\u5747\\u8bc4\\u5206\\uff08\\u6d6e\\u70b9\\u6570\\u8868\\u793a\\uff0c\\u4f8b\\u5982 3500 = 3.5\\uff09\\n     */\\n    function getAverageRating(uint256 agentId) public view returns (uint256 rating) {\\n        return reputations[agentId].averageRating;\\n    }\\n}\\n\\n\",\"keccak256\":\"0xe0bae6a7b54054179923d9ba492a47f37168952377035485f1b3d9fa7ae8ea26\",\"license\":\"MIT\"},\"contracts/EIP8004/ValidationRegistry.sol\":{\"content\":\"//SPDX-License-Identifier: MIT\\npragma solidity >=0.8.0 <0.9.0;\\n\\n/**\\n * @title ValidationRegistry\\n * @notice EIP-8004 \\u9a8c\\u8bc1\\u6ce8\\u518c\\u8868\\n * @dev \\u7ba1\\u7406 Agent \\u7684\\u9a8c\\u8bc1\\u3001\\u8bc1\\u660e\\u548c\\u4e89\\u8bae\\n */\\ncontract ValidationRegistry {\\n    enum ValidationStatus {\\n        Pending,    // \\u5f85\\u9a8c\\u8bc1\\n        Approved,   // \\u5df2\\u901a\\u8fc7\\n        Rejected,   // \\u5df2\\u62d2\\u7edd\\n        Disputed    // \\u6709\\u4e89\\u8bae\\n    }\\n\\n    struct Validation {\\n        uint256 agentId;             // Agent ID\\n        address validator;           // \\u9a8c\\u8bc1\\u8005\\u5730\\u5740\\n        ValidationStatus status;     // \\u9a8c\\u8bc1\\u72b6\\u6001\\n        string proofURI;             // \\u8bc1\\u660e URI\\uff08IPFS\\uff09\\n        string notes;                // \\u9a8c\\u8bc1\\u5907\\u6ce8\\n        uint256 timestamp;           // \\u9a8c\\u8bc1\\u65f6\\u95f4\\n    }\\n\\n    struct Dispute {\\n        uint256 validationId;        // \\u9a8c\\u8bc1 ID\\n        address disputer;            // \\u4e89\\u8bae\\u53d1\\u8d77\\u8005\\n        string reason;               // \\u4e89\\u8bae\\u539f\\u56e0\\n        uint256 timestamp;            // \\u4e89\\u8bae\\u65f6\\u95f4\\n        bool resolved;               // \\u662f\\u5426\\u5df2\\u89e3\\u51b3\\n    }\\n\\n    // Validation ID => Validation\\n    mapping(uint256 => Validation) public validations;\\n    \\n    // Agent ID => Validation IDs\\n    mapping(uint256 => uint256[]) public agentValidations;\\n    \\n    // Validation ID => Dispute\\n    mapping(uint256 => Dispute) public disputes;\\n    \\n    uint256 private nextValidationId = 1;\\n\\n    // \\u4e8b\\u4ef6\\n    event ValidationSubmitted(\\n        uint256 indexed validationId,\\n        uint256 indexed agentId,\\n        address indexed validator,\\n        ValidationStatus status,\\n        string proofURI,\\n        uint256 timestamp\\n    );\\n    \\n    event ValidationUpdated(\\n        uint256 indexed validationId,\\n        ValidationStatus newStatus\\n    );\\n    \\n    event DisputeRaised(\\n        uint256 indexed validationId,\\n        address indexed disputer,\\n        string reason\\n    );\\n\\n    /**\\n     * @notice \\u63d0\\u4ea4 Agent \\u9a8c\\u8bc1\\n     * @param agentId Agent ID\\n     * @param status \\u9a8c\\u8bc1\\u72b6\\u6001\\n     * @param proofURI \\u8bc1\\u660e URI\\n     * @param notes \\u9a8c\\u8bc1\\u5907\\u6ce8\\n     * @return validationId \\u9a8c\\u8bc1 ID\\n     */\\n    function submitValidation(\\n        uint256 agentId,\\n        ValidationStatus status,\\n        string memory proofURI,\\n        string memory notes\\n    ) public returns (uint256 validationId) {\\n        validationId = nextValidationId++;\\n        \\n        validations[validationId] = Validation({\\n            agentId: agentId,\\n            validator: msg.sender,\\n            status: status,\\n            proofURI: proofURI,\\n            notes: notes,\\n            timestamp: block.timestamp\\n        });\\n        \\n        agentValidations[agentId].push(validationId);\\n        \\n        emit ValidationSubmitted(validationId, agentId, msg.sender, status, proofURI, block.timestamp);\\n        \\n        return validationId;\\n    }\\n\\n    /**\\n     * @notice \\u66f4\\u65b0\\u9a8c\\u8bc1\\u72b6\\u6001\\n     * @param validationId \\u9a8c\\u8bc1 ID\\n     * @param newStatus \\u65b0\\u72b6\\u6001\\n     */\\n    function updateValidationStatus(uint256 validationId, ValidationStatus newStatus) public {\\n        Validation storage validation = validations[validationId];\\n        require(validation.validator == msg.sender, \\\"ValidationRegistry: Not validator\\\");\\n        \\n        validation.status = newStatus;\\n        \\n        emit ValidationUpdated(validationId, newStatus);\\n    }\\n\\n    /**\\n     * @notice \\u5bf9\\u9a8c\\u8bc1\\u63d0\\u51fa\\u4e89\\u8bae\\n     * @param validationId \\u9a8c\\u8bc1 ID\\n     * @param reason \\u4e89\\u8bae\\u539f\\u56e0\\n     */\\n    function raiseDispute(uint256 validationId, string memory reason) public {\\n        require(validations[validationId].timestamp > 0, \\\"ValidationRegistry: Validation not found\\\");\\n        require(disputes[validationId].disputer == address(0), \\\"ValidationRegistry: Dispute exists\\\");\\n        \\n        disputes[validationId] = Dispute({\\n            validationId: validationId,\\n            disputer: msg.sender,\\n            reason: reason,\\n            timestamp: block.timestamp,\\n            resolved: false\\n        });\\n        \\n        validations[validationId].status = ValidationStatus.Disputed;\\n        \\n        emit DisputeRaised(validationId, msg.sender, reason);\\n    }\\n\\n    /**\\n     * @notice \\u89e3\\u51b3\\u4e89\\u8bae\\n     * @param validationId \\u9a8c\\u8bc1 ID\\n     * @param finalStatus \\u6700\\u7ec8\\u72b6\\u6001\\n     */\\n    function resolveDispute(uint256 validationId, ValidationStatus finalStatus) public {\\n        Dispute storage dispute = disputes[validationId];\\n        require(dispute.disputer != address(0), \\\"ValidationRegistry: No dispute\\\");\\n        require(!dispute.resolved, \\\"ValidationRegistry: Already resolved\\\");\\n        // \\u6ce8\\u610f\\uff1a\\u5b9e\\u9645\\u5e94\\u7528\\u4e2d\\u5e94\\u8be5\\u53ea\\u6709\\u4ef2\\u88c1\\u8005\\u53ef\\u4ee5\\u89e3\\u51b3\\u4e89\\u8bae\\n        \\n        dispute.resolved = true;\\n        validations[validationId].status = finalStatus;\\n        \\n        emit ValidationUpdated(validationId, finalStatus);\\n    }\\n\\n    /**\\n     * @notice \\u83b7\\u53d6 Agent \\u7684\\u6240\\u6709\\u9a8c\\u8bc1\\n     * @param agentId Agent ID\\n     * @return validationIds \\u9a8c\\u8bc1 ID \\u6570\\u7ec4\\n     */\\n    function getAgentValidations(uint256 agentId) public view returns (uint256[] memory validationIds) {\\n        return agentValidations[agentId];\\n    }\\n\\n    /**\\n     * @notice \\u83b7\\u53d6\\u9a8c\\u8bc1\\u8be6\\u60c5\\n     * @param validationId \\u9a8c\\u8bc1 ID\\n     * @return validation \\u9a8c\\u8bc1\\u7ed3\\u6784\\n     */\\n    function getValidation(uint256 validationId) public view returns (Validation memory validation) {\\n        return validations[validationId];\\n    }\\n}\\n\\n\",\"keccak256\":\"0xf9f624f706555edee83a60f5bcd8c78bbd55b6e5861de2c76994223aa09b188e\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60806040523480156200001157600080fd5b5060405162001ccf38038062001ccf833981016040819052620000349162000094565b600080546001600160a01b039485166001600160a01b031991821617909155600180549385169382169390931790925560028054919093169116179055620000de565b80516001600160a01b03811681146200008f57600080fd5b919050565b600080600060608486031215620000aa57600080fd5b620000b58462000077565b9250620000c56020850162000077565b9150620000d56040850162000077565b90509250925092565b611be180620000ee6000396000f3fe6080604052600436106100dd5760003560e01c80639c29c2721161007f578063caf944a111610059578063caf944a114610265578063da448d7b14610285578063de74e57b146102a5578063fc00db0e146102dc57600080fd5b80639c29c27214610205578063af648e1214610225578063c8db44e31461024557600080fd5b806314964857116100bb578063149648571461017557806322b73243146101a3578063320e2795146101c55780634c6b993a146101e557600080fd5b80630d7f31dd146100e25780631154c3fe1461010d578063134e18f41461013d575b600080fd5b3480156100ee57600080fd5b506100f76102ef565b604051610104919061126a565b60405180910390f35b34801561011957600080fd5b5061012d6101283660046112ae565b610347565b6040516101049493929190611398565b34801561014957600080fd5b5060005461015d906001600160a01b031681565b6040516001600160a01b039091168152602001610104565b34801561018157600080fd5b506101956101903660046112ae565b61075c565b604051908152602001610104565b3480156101af57600080fd5b506101c36101be3660046115a7565b61077d565b005b3480156101d157600080fd5b506101c36101e03660046112ae565b61090a565b3480156101f157600080fd5b5060025461015d906001600160a01b031681565b34801561021157600080fd5b50610195610220366004611678565b6109d3565b34801561023157600080fd5b506101c36102403660046116bd565b610a13565b34801561025157600080fd5b5060015461015d906001600160a01b031681565b34801561027157600080fd5b5061019561028036600461171c565b610a7e565b34801561029157600080fd5b506101c36102a03660046112ae565b610cbe565b3480156102b157600080fd5b506102c56102c03660046112ae565b610dc9565b6040516101049b9a999897969594939291906117e2565b6101c36102ea3660046112ae565b611056565b6060600480548060200260200160405190810160405280929190818152602001828054801561033d57602002820191906000526020600020905b815481526020019060010190808311610329575b5050505050905090565b61034f6111f4565b610385604051806080016040528060006001600160a01b0316815260200160608152602001600081526020016000151581525090565b600083815260036020908152604080832081516101608101909252805482526001810180548594840191906103b990611880565b80601f01602080910402602001604051908101604052809291908181526020018280546103e590611880565b80156104325780601f1061040757610100808354040283529160200191610432565b820191906000526020600020905b81548152906001019060200180831161041557829003601f168201915b5050505050815260200160028201805461044b90611880565b80601f016020809104026020016040519081016040528092919081815260200182805461047790611880565b80156104c45780601f10610499576101008083540402835291602001916104c4565b820191906000526020600020905b8154815290600101906020018083116104a757829003601f168201915b505050505081526020016003820180546104dd90611880565b80601f016020809104026020016040519081016040528092919081815260200182805461050990611880565b80156105565780601f1061052b57610100808354040283529160200191610556565b820191906000526020600020905b81548152906001019060200180831161053957829003601f168201915b5050509183525050600482015460209091019060ff16600381111561057d5761057d611317565b600381111561058e5761058e611317565b81526020016005820180546105a290611880565b80601f01602080910402602001604051908101604052809291908181526020018280546105ce90611880565b801561061b5780601f106105f05761010080835404028352916020019161061b565b820191906000526020600020905b8154815290600101906020018083116105fe57829003601f168201915b50505091835250506006820154602082015260078201546001600160a01b03808216604080850191909152600160a01b90920460ff16151560608401526008840154608084015260099093015460a09092019190915260005490516312f3a11d60e01b81526004810189905292965016906312f3a11d90602401600060405180830381865afa1580156106b2573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f191682016040526106da91908101906118ca565b6001546040516389370d8b60e01b81526004810188905291945060009182916001600160a01b0316906389370d8b90602401606060405180830381865afa158015610729573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061074d91906119a9565b97999698509695945050505050565b6004818154811061076c57600080fd5b600091825260209091200154905081565b6000878152600360205260409020600701546001600160a01b031633146107e35760405162461bcd60e51b815260206004820152601560248201527420b3b2b73a29ba37b9329d102737ba1037bbb732b960591b60448201526064015b60405180910390fd5b600087815260036020526040902060070154600160a01b900460ff166108445760405162461bcd60e51b81526020600482015260166024820152751059d95b9d14dd1bdc994e88139bdd081b1a5cdd195960521b60448201526064016107da565b600087815260036020526040902060010161085f8782611a26565b50600087815260036020526040902060020161087b8682611a26565b506000878152600360208190526040909120016108988582611a26565b5060008781526003602081905260409091206004018054859260ff199091169060019084908111156108cc576108cc611317565b021790555060008781526003602052604090206005016108ec8382611a26565b50600096875260036020526040909620600601959095555050505050565b600081815260036020526040902060070154600160a01b900460ff166109725760405162461bcd60e51b815260206004820152601c60248201527f4167656e7453746f72653a204167656e74206e6f74206c69737465640000000060448201526064016107da565b6000818152600360205260408120600901805460019290610994908490611afc565b9091555050604051428152339082907f6d78589f324fefee4a0445a95d0fa6b8df8211e6f679d4b4b04d98d2d9f0ab7c9060200160405180910390a350565b815160208184018101805160058252928201918501919091209190528054829081106109fe57600080fd5b90600052602060002001600091509150505481565b600154604051630e7fe54760e41b81526001600160a01b039091169063e7fe547090610a4790869086908690600401611b15565b600060405180830381600087803b158015610a6157600080fd5b505af1158015610a75573d6000803e3d6000fd5b50505050505050565b60008054604051632d2a958560e01b81526001600160a01b0390911690632d2a958590610aaf908890600401611b40565b6020604051808303816000875af1158015610ace573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610af29190611b5a565b9050604051806101600160405280828152602001888152602001878152602001868152602001856003811115610b2a57610b2a611317565b8152602080820186905260408083018690523360608401526001608084018190524260a0850152600060c090940184905285845260038352922083518155908301519091820190610b7b9082611a26565b5060408201516002820190610b909082611a26565b5060608201516003820190610ba59082611a26565b50608082015160048201805460ff19166001836003811115610bc957610bc9611317565b021790555060a08201516005820190610be29082611a26565b5060c0820151600682015560e08201516007820180546101008501511515600160a01b026001600160a81b03199091166001600160a01b0390931692909217919091179055610120820151600882015561014090910151600990910155600480546001810182556000919091527f8a35acfbc15ff81a39ae7d344fd709f28e8600b4aa8c65c6b64bfe7fe36bd19b01819055604051339082907fe243f6b5e411dbb5ca5ae57903fa81c3d10600fac845405d81906cb7c70f88af90610cac908b9087904290611b73565b60405180910390a39695505050505050565b6000818152600360205260409020600701546001600160a01b03163314610d1f5760405162461bcd60e51b815260206004820152601560248201527420b3b2b73a29ba37b9329d102737ba1037bbb732b960591b60448201526064016107da565b600081815260036020526040902060070154600160a01b900460ff16610d805760405162461bcd60e51b81526020600482015260166024820152751059d95b9d14dd1bdc994e88139bdd081b1a5cdd195960521b60448201526064016107da565b600081815260036020526040808220600701805460ff60a01b1916905551339183917f614f45e430d0ebaaade722fa9de95b9eb2651a5e6671fb7fec7a417181fe23af9190a350565b60036020526000908152604090208054600182018054919291610deb90611880565b80601f0160208091040260200160405190810160405280929190818152602001828054610e1790611880565b8015610e645780601f10610e3957610100808354040283529160200191610e64565b820191906000526020600020905b815481529060010190602001808311610e4757829003601f168201915b505050505090806002018054610e7990611880565b80601f0160208091040260200160405190810160405280929190818152602001828054610ea590611880565b8015610ef25780601f10610ec757610100808354040283529160200191610ef2565b820191906000526020600020905b815481529060010190602001808311610ed557829003601f168201915b505050505090806003018054610f0790611880565b80601f0160208091040260200160405190810160405280929190818152602001828054610f3390611880565b8015610f805780601f10610f5557610100808354040283529160200191610f80565b820191906000526020600020905b815481529060010190602001808311610f6357829003601f168201915b5050506004840154600585018054949560ff909216949193509150610fa490611880565b80601f0160208091040260200160405190810160405280929190818152602001828054610fd090611880565b801561101d5780601f10610ff25761010080835404028352916020019161101d565b820191906000526020600020905b81548152906001019060200180831161100057829003601f168201915b50505050600683015460078401546008850154600990950154939491936001600160a01b0382169350600160a01b90910460ff1691908b565b60008181526003602052604090206007810154600160a01b900460ff166110bf5760405162461bcd60e51b815260206004820152601c60248201527f4167656e7453746f72653a204167656e74206e6f74206c69737465640000000060448201526064016107da565b80600601543410156111135760405162461bcd60e51b815260206004820181905260248201527f4167656e7453746f72653a20496e73756666696369656e74207061796d656e7460448201526064016107da565b806006015434111561115e57600681015433906108fc906111349034611b98565b6040518115909202916000818181858888f1935050505015801561115c573d6000803e3d6000fd5b505b600781015460068201546040516001600160a01b039092169181156108fc0291906000818181858888f1935050505015801561119e573d6000803e3d6000fd5b5060018160090160008282546111b49190611afc565b9091555050604051428152339083907f6d78589f324fefee4a0445a95d0fa6b8df8211e6f679d4b4b04d98d2d9f0ab7c9060200160405180910390a35050565b604051806101600160405280600081526020016060815260200160608152602001606081526020016000600381111561122f5761122f611317565b8152602001606081526020016000815260200160006001600160a01b0316815260200160001515815260200160008152602001600081525090565b6020808252825182820181905260009190848201906040850190845b818110156112a257835183529284019291840191600101611286565b50909695505050505050565b6000602082840312156112c057600080fd5b5035919050565b60005b838110156112e25781810151838201526020016112ca565b50506000910152565b600081518084526113038160208601602086016112c7565b601f01601f19169290920160200192915050565b634e487b7160e01b600052602160045260246000fd5b6004811061134b57634e487b7160e01b600052602160045260246000fd5b9052565b60018060a01b038151168252600060208201516080602085015261137660808501826112eb565b9050604083015160408501526060830151151560608501528091505092915050565b6080815284516080820152600060208601516101608060a08501526113c16101e08501836112eb565b91506040880151607f19808685030160c08701526113df84836112eb565b935060608a01519150808685030160e08701526113fc84836112eb565b935060808a015191506101006114148188018461132d565b60a08b0151925061012082888703018189015261143186856112eb565b955060c08c015193506101409250838389015260e08c0151935061145f858901856001600160a01b03169052565b908b015115156101808801528a01516101a08701528901516101c086015250508281036020840152611491818761134f565b604084019590955250506060015292915050565b634e487b7160e01b600052604160045260246000fd5b6040516080810167ffffffffffffffff811182821017156114de576114de6114a5565b60405290565b604051601f8201601f1916810167ffffffffffffffff8111828210171561150d5761150d6114a5565b604052919050565b600067ffffffffffffffff82111561152f5761152f6114a5565b50601f01601f191660200190565b600082601f83011261154e57600080fd5b813561156161155c82611515565b6114e4565b81815284602083860101111561157657600080fd5b816020850160208301376000918101602001919091529392505050565b8035600481106115a257600080fd5b919050565b600080600080600080600060e0888a0312156115c257600080fd5b87359650602088013567ffffffffffffffff808211156115e157600080fd5b6115ed8b838c0161153d565b975060408a013591508082111561160357600080fd5b61160f8b838c0161153d565b965060608a013591508082111561162557600080fd5b6116318b838c0161153d565b955061163f60808b01611593565b945060a08a013591508082111561165557600080fd5b506116628a828b0161153d565b92505060c0880135905092959891949750929550565b6000806040838503121561168b57600080fd5b823567ffffffffffffffff8111156116a257600080fd5b6116ae8582860161153d565b95602094909401359450505050565b6000806000606084860312156116d257600080fd5b83359250602084013560ff811681146116ea57600080fd5b9150604084013567ffffffffffffffff81111561170657600080fd5b6117128682870161153d565b9150509250925092565b60008060008060008060c0878903121561173557600080fd5b863567ffffffffffffffff8082111561174d57600080fd5b6117598a838b0161153d565b9750602089013591508082111561176f57600080fd5b61177b8a838b0161153d565b9650604089013591508082111561179157600080fd5b61179d8a838b0161153d565b95506117ab60608a01611593565b945060808901359150808211156117c157600080fd5b506117ce89828a0161153d565b92505060a087013590509295509295509295565b60006101608d83528060208401526117fc8184018e6112eb565b90508281036040840152611810818d6112eb565b90508281036060840152611824818c6112eb565b9050611833608084018b61132d565b82810360a0840152611845818a6112eb565b60c084019890985250506001600160a01b039490941660e0850152911515610100840152610120830152610140909101529695505050505050565b600181811c9082168061189457607f821691505b6020821081036118b457634e487b7160e01b600052602260045260246000fd5b50919050565b805180151581146115a257600080fd5b600060208083850312156118dd57600080fd5b825167ffffffffffffffff808211156118f557600080fd5b908401906080828703121561190957600080fd5b6119116114bb565b82516001600160a01b038116811461192857600080fd5b8152828401518281111561193b57600080fd5b83019150601f8201871361194e57600080fd5b815161195c61155c82611515565b818152888683860101111561197057600080fd5b61197f828783018887016112c7565b82860152506040838101519082015261199a606084016118ba565b60608201529695505050505050565b6000806000606084860312156119be57600080fd5b8351925060208401519150604084015190509250925092565b601f821115611a2157600081815260208120601f850160051c810160208610156119fe5750805b601f850160051c820191505b81811015611a1d57828155600101611a0a565b5050505b505050565b815167ffffffffffffffff811115611a4057611a406114a5565b611a5481611a4e8454611880565b846119d7565b602080601f831160018114611a895760008415611a715750858301515b600019600386901b1c1916600185901b178555611a1d565b600085815260208120601f198616915b82811015611ab857888601518255948401946001909101908401611a99565b5085821015611ad65787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b634e487b7160e01b600052601160045260246000fd5b80820180821115611b0f57611b0f611ae6565b92915050565b83815260ff83166020820152606060408201526000611b3760608301846112eb565b95945050505050565b602081526000611b5360208301846112eb565b9392505050565b600060208284031215611b6c57600080fd5b5051919050565b606081526000611b8660608301866112eb565b60208301949094525060400152919050565b81810381811115611b0f57611b0f611ae656fea2646970667358221220480502bfb66aee4ec53daff73b79205f49f5d6a97f31d766e0c87ff1e39849d164736f6c63430008140033",
+  "deployedBytecode": "0x6080604052600436106100dd5760003560e01c80639c29c2721161007f578063caf944a111610059578063caf944a114610265578063da448d7b14610285578063de74e57b146102a5578063fc00db0e146102dc57600080fd5b80639c29c27214610205578063af648e1214610225578063c8db44e31461024557600080fd5b806314964857116100bb578063149648571461017557806322b73243146101a3578063320e2795146101c55780634c6b993a146101e557600080fd5b80630d7f31dd146100e25780631154c3fe1461010d578063134e18f41461013d575b600080fd5b3480156100ee57600080fd5b506100f76102ef565b604051610104919061126a565b60405180910390f35b34801561011957600080fd5b5061012d6101283660046112ae565b610347565b6040516101049493929190611398565b34801561014957600080fd5b5060005461015d906001600160a01b031681565b6040516001600160a01b039091168152602001610104565b34801561018157600080fd5b506101956101903660046112ae565b61075c565b604051908152602001610104565b3480156101af57600080fd5b506101c36101be3660046115a7565b61077d565b005b3480156101d157600080fd5b506101c36101e03660046112ae565b61090a565b3480156101f157600080fd5b5060025461015d906001600160a01b031681565b34801561021157600080fd5b50610195610220366004611678565b6109d3565b34801561023157600080fd5b506101c36102403660046116bd565b610a13565b34801561025157600080fd5b5060015461015d906001600160a01b031681565b34801561027157600080fd5b5061019561028036600461171c565b610a7e565b34801561029157600080fd5b506101c36102a03660046112ae565b610cbe565b3480156102b157600080fd5b506102c56102c03660046112ae565b610dc9565b6040516101049b9a999897969594939291906117e2565b6101c36102ea3660046112ae565b611056565b6060600480548060200260200160405190810160405280929190818152602001828054801561033d57602002820191906000526020600020905b815481526020019060010190808311610329575b5050505050905090565b61034f6111f4565b610385604051806080016040528060006001600160a01b0316815260200160608152602001600081526020016000151581525090565b600083815260036020908152604080832081516101608101909252805482526001810180548594840191906103b990611880565b80601f01602080910402602001604051908101604052809291908181526020018280546103e590611880565b80156104325780601f1061040757610100808354040283529160200191610432565b820191906000526020600020905b81548152906001019060200180831161041557829003601f168201915b5050505050815260200160028201805461044b90611880565b80601f016020809104026020016040519081016040528092919081815260200182805461047790611880565b80156104c45780601f10610499576101008083540402835291602001916104c4565b820191906000526020600020905b8154815290600101906020018083116104a757829003601f168201915b505050505081526020016003820180546104dd90611880565b80601f016020809104026020016040519081016040528092919081815260200182805461050990611880565b80156105565780601f1061052b57610100808354040283529160200191610556565b820191906000526020600020905b81548152906001019060200180831161053957829003601f168201915b5050509183525050600482015460209091019060ff16600381111561057d5761057d611317565b600381111561058e5761058e611317565b81526020016005820180546105a290611880565b80601f01602080910402602001604051908101604052809291908181526020018280546105ce90611880565b801561061b5780601f106105f05761010080835404028352916020019161061b565b820191906000526020600020905b8154815290600101906020018083116105fe57829003601f168201915b50505091835250506006820154602082015260078201546001600160a01b03808216604080850191909152600160a01b90920460ff16151560608401526008840154608084015260099093015460a09092019190915260005490516312f3a11d60e01b81526004810189905292965016906312f3a11d90602401600060405180830381865afa1580156106b2573d6000803e3d6000fd5b505050506040513d6000823e601f3d908101601f191682016040526106da91908101906118ca565b6001546040516389370d8b60e01b81526004810188905291945060009182916001600160a01b0316906389370d8b90602401606060405180830381865afa158015610729573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061074d91906119a9565b97999698509695945050505050565b6004818154811061076c57600080fd5b600091825260209091200154905081565b6000878152600360205260409020600701546001600160a01b031633146107e35760405162461bcd60e51b815260206004820152601560248201527420b3b2b73a29ba37b9329d102737ba1037bbb732b960591b60448201526064015b60405180910390fd5b600087815260036020526040902060070154600160a01b900460ff166108445760405162461bcd60e51b81526020600482015260166024820152751059d95b9d14dd1bdc994e88139bdd081b1a5cdd195960521b60448201526064016107da565b600087815260036020526040902060010161085f8782611a26565b50600087815260036020526040902060020161087b8682611a26565b506000878152600360208190526040909120016108988582611a26565b5060008781526003602081905260409091206004018054859260ff199091169060019084908111156108cc576108cc611317565b021790555060008781526003602052604090206005016108ec8382611a26565b50600096875260036020526040909620600601959095555050505050565b600081815260036020526040902060070154600160a01b900460ff166109725760405162461bcd60e51b815260206004820152601c60248201527f4167656e7453746f72653a204167656e74206e6f74206c69737465640000000060448201526064016107da565b6000818152600360205260408120600901805460019290610994908490611afc565b9091555050604051428152339082907f6d78589f324fefee4a0445a95d0fa6b8df8211e6f679d4b4b04d98d2d9f0ab7c9060200160405180910390a350565b815160208184018101805160058252928201918501919091209190528054829081106109fe57600080fd5b90600052602060002001600091509150505481565b600154604051630e7fe54760e41b81526001600160a01b039091169063e7fe547090610a4790869086908690600401611b15565b600060405180830381600087803b158015610a6157600080fd5b505af1158015610a75573d6000803e3d6000fd5b50505050505050565b60008054604051632d2a958560e01b81526001600160a01b0390911690632d2a958590610aaf908890600401611b40565b6020604051808303816000875af1158015610ace573d6000803e3d6000fd5b505050506040513d601f19601f82011682018060405250810190610af29190611b5a565b9050604051806101600160405280828152602001888152602001878152602001868152602001856003811115610b2a57610b2a611317565b8152602080820186905260408083018690523360608401526001608084018190524260a0850152600060c090940184905285845260038352922083518155908301519091820190610b7b9082611a26565b5060408201516002820190610b909082611a26565b5060608201516003820190610ba59082611a26565b50608082015160048201805460ff19166001836003811115610bc957610bc9611317565b021790555060a08201516005820190610be29082611a26565b5060c0820151600682015560e08201516007820180546101008501511515600160a01b026001600160a81b03199091166001600160a01b0390931692909217919091179055610120820151600882015561014090910151600990910155600480546001810182556000919091527f8a35acfbc15ff81a39ae7d344fd709f28e8600b4aa8c65c6b64bfe7fe36bd19b01819055604051339082907fe243f6b5e411dbb5ca5ae57903fa81c3d10600fac845405d81906cb7c70f88af90610cac908b9087904290611b73565b60405180910390a39695505050505050565b6000818152600360205260409020600701546001600160a01b03163314610d1f5760405162461bcd60e51b815260206004820152601560248201527420b3b2b73a29ba37b9329d102737ba1037bbb732b960591b60448201526064016107da565b600081815260036020526040902060070154600160a01b900460ff16610d805760405162461bcd60e51b81526020600482015260166024820152751059d95b9d14dd1bdc994e88139bdd081b1a5cdd195960521b60448201526064016107da565b600081815260036020526040808220600701805460ff60a01b1916905551339183917f614f45e430d0ebaaade722fa9de95b9eb2651a5e6671fb7fec7a417181fe23af9190a350565b60036020526000908152604090208054600182018054919291610deb90611880565b80601f0160208091040260200160405190810160405280929190818152602001828054610e1790611880565b8015610e645780601f10610e3957610100808354040283529160200191610e64565b820191906000526020600020905b815481529060010190602001808311610e4757829003601f168201915b505050505090806002018054610e7990611880565b80601f0160208091040260200160405190810160405280929190818152602001828054610ea590611880565b8015610ef25780601f10610ec757610100808354040283529160200191610ef2565b820191906000526020600020905b815481529060010190602001808311610ed557829003601f168201915b505050505090806003018054610f0790611880565b80601f0160208091040260200160405190810160405280929190818152602001828054610f3390611880565b8015610f805780601f10610f5557610100808354040283529160200191610f80565b820191906000526020600020905b815481529060010190602001808311610f6357829003601f168201915b5050506004840154600585018054949560ff909216949193509150610fa490611880565b80601f0160208091040260200160405190810160405280929190818152602001828054610fd090611880565b801561101d5780601f10610ff25761010080835404028352916020019161101d565b820191906000526020600020905b81548152906001019060200180831161100057829003601f168201915b50505050600683015460078401546008850154600990950154939491936001600160a01b0382169350600160a01b90910460ff1691908b565b60008181526003602052604090206007810154600160a01b900460ff166110bf5760405162461bcd60e51b815260206004820152601c60248201527f4167656e7453746f72653a204167656e74206e6f74206c69737465640000000060448201526064016107da565b80600601543410156111135760405162461bcd60e51b815260206004820181905260248201527f4167656e7453746f72653a20496e73756666696369656e74207061796d656e7460448201526064016107da565b806006015434111561115e57600681015433906108fc906111349034611b98565b6040518115909202916000818181858888f1935050505015801561115c573d6000803e3d6000fd5b505b600781015460068201546040516001600160a01b039092169181156108fc0291906000818181858888f1935050505015801561119e573d6000803e3d6000fd5b5060018160090160008282546111b49190611afc565b9091555050604051428152339083907f6d78589f324fefee4a0445a95d0fa6b8df8211e6f679d4b4b04d98d2d9f0ab7c9060200160405180910390a35050565b604051806101600160405280600081526020016060815260200160608152602001606081526020016000600381111561122f5761122f611317565b8152602001606081526020016000815260200160006001600160a01b0316815260200160001515815260200160008152602001600081525090565b6020808252825182820181905260009190848201906040850190845b818110156112a257835183529284019291840191600101611286565b50909695505050505050565b6000602082840312156112c057600080fd5b5035919050565b60005b838110156112e25781810151838201526020016112ca565b50506000910152565b600081518084526113038160208601602086016112c7565b601f01601f19169290920160200192915050565b634e487b7160e01b600052602160045260246000fd5b6004811061134b57634e487b7160e01b600052602160045260246000fd5b9052565b60018060a01b038151168252600060208201516080602085015261137660808501826112eb565b9050604083015160408501526060830151151560608501528091505092915050565b6080815284516080820152600060208601516101608060a08501526113c16101e08501836112eb565b91506040880151607f19808685030160c08701526113df84836112eb565b935060608a01519150808685030160e08701526113fc84836112eb565b935060808a015191506101006114148188018461132d565b60a08b0151925061012082888703018189015261143186856112eb565b955060c08c015193506101409250838389015260e08c0151935061145f858901856001600160a01b03169052565b908b015115156101808801528a01516101a08701528901516101c086015250508281036020840152611491818761134f565b604084019590955250506060015292915050565b634e487b7160e01b600052604160045260246000fd5b6040516080810167ffffffffffffffff811182821017156114de576114de6114a5565b60405290565b604051601f8201601f1916810167ffffffffffffffff8111828210171561150d5761150d6114a5565b604052919050565b600067ffffffffffffffff82111561152f5761152f6114a5565b50601f01601f191660200190565b600082601f83011261154e57600080fd5b813561156161155c82611515565b6114e4565b81815284602083860101111561157657600080fd5b816020850160208301376000918101602001919091529392505050565b8035600481106115a257600080fd5b919050565b600080600080600080600060e0888a0312156115c257600080fd5b87359650602088013567ffffffffffffffff808211156115e157600080fd5b6115ed8b838c0161153d565b975060408a013591508082111561160357600080fd5b61160f8b838c0161153d565b965060608a013591508082111561162557600080fd5b6116318b838c0161153d565b955061163f60808b01611593565b945060a08a013591508082111561165557600080fd5b506116628a828b0161153d565b92505060c0880135905092959891949750929550565b6000806040838503121561168b57600080fd5b823567ffffffffffffffff8111156116a257600080fd5b6116ae8582860161153d565b95602094909401359450505050565b6000806000606084860312156116d257600080fd5b83359250602084013560ff811681146116ea57600080fd5b9150604084013567ffffffffffffffff81111561170657600080fd5b6117128682870161153d565b9150509250925092565b60008060008060008060c0878903121561173557600080fd5b863567ffffffffffffffff8082111561174d57600080fd5b6117598a838b0161153d565b9750602089013591508082111561176f57600080fd5b61177b8a838b0161153d565b9650604089013591508082111561179157600080fd5b61179d8a838b0161153d565b95506117ab60608a01611593565b945060808901359150808211156117c157600080fd5b506117ce89828a0161153d565b92505060a087013590509295509295509295565b60006101608d83528060208401526117fc8184018e6112eb565b90508281036040840152611810818d6112eb565b90508281036060840152611824818c6112eb565b9050611833608084018b61132d565b82810360a0840152611845818a6112eb565b60c084019890985250506001600160a01b039490941660e0850152911515610100840152610120830152610140909101529695505050505050565b600181811c9082168061189457607f821691505b6020821081036118b457634e487b7160e01b600052602260045260246000fd5b50919050565b805180151581146115a257600080fd5b600060208083850312156118dd57600080fd5b825167ffffffffffffffff808211156118f557600080fd5b908401906080828703121561190957600080fd5b6119116114bb565b82516001600160a01b038116811461192857600080fd5b8152828401518281111561193b57600080fd5b83019150601f8201871361194e57600080fd5b815161195c61155c82611515565b818152888683860101111561197057600080fd5b61197f828783018887016112c7565b82860152506040838101519082015261199a606084016118ba565b60608201529695505050505050565b6000806000606084860312156119be57600080fd5b8351925060208401519150604084015190509250925092565b601f821115611a2157600081815260208120601f850160051c810160208610156119fe5750805b601f850160051c820191505b81811015611a1d57828155600101611a0a565b5050505b505050565b815167ffffffffffffffff811115611a4057611a406114a5565b611a5481611a4e8454611880565b846119d7565b602080601f831160018114611a895760008415611a715750858301515b600019600386901b1c1916600185901b178555611a1d565b600085815260208120601f198616915b82811015611ab857888601518255948401946001909101908401611a99565b5085821015611ad65787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b634e487b7160e01b600052601160045260246000fd5b80820180821115611b0f57611b0f611ae6565b92915050565b83815260ff83166020820152606060408201526000611b3760608301846112eb565b95945050505050565b602081526000611b5360208301846112eb565b9392505050565b600060208284031215611b6c57600080fd5b5051919050565b606081526000611b8660608301866112eb565b60208301949094525060400152919050565b81810381811115611b0f57611b0f611ae656fea2646970667358221220480502bfb66aee4ec53daff73b79205f49f5d6a97f31d766e0c87ff1e39849d164736f6c63430008140033",
+  "devdoc": {
+    "details": "提供完整的 Agent 注册、发现、评价和管理功能",
+    "kind": "dev",
+    "methods": {
+      "callAgent(uint256)": {
+        "params": {
+          "agentId": "Agent ID"
+        }
+      },
+      "getAgentFullInfo(uint256)": {
+        "params": {
+          "agentId": "Agent ID"
+        },
+        "returns": {
+          "averageRating": "平均评分（放大 1000 倍）",
+          "feedbackCount": "反馈数量",
+          "identity": "身份信息",
+          "listing": "上架信息"
+        }
+      },
+      "getAllListedAgents()": {
+        "returns": {
+          "agentIds": "Agent ID 数组"
+        }
+      },
+      "recordUsage(uint256)": {
+        "params": {
+          "agentId": "Agent ID"
+        }
+      },
+      "registerAndListAgent(string,string,string,uint8,string,uint256)": {
+        "params": {
+          "description": "简介",
+          "link": "链接",
+          "method": "请求方式",
+          "name": "Agent 名称",
+          "price": "价格（以 wei 为单位）",
+          "requestParams": "请求参数（JSON 字符串）"
+        },
+        "returns": {
+          "agentId": "新创建的 Agent ID"
+        }
+      },
+      "submitRating(uint256,uint8,string)": {
+        "params": {
+          "agentId": "Agent ID",
+          "comment": "评价内容",
+          "rating": "评分 (1-5)"
+        }
+      },
+      "unlistAgent(uint256)": {
+        "params": {
+          "agentId": "Agent ID"
+        }
+      },
+      "updateAgent(uint256,string,string,string,uint8,string,uint256)": {
+        "params": {
+          "agentId": "Agent ID",
+          "description": "简介",
+          "link": "链接",
+          "method": "请求方式",
+          "name": "Agent 名称",
+          "price": "价格",
+          "requestParams": "请求参数"
+        }
+      }
+    },
+    "title": "AgentStore",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "callAgent(uint256)": {
+        "notice": "调用 Agent（支付费用并记录使用）"
+      },
+      "getAgentFullInfo(uint256)": {
+        "notice": "获取 Agent 完整信息"
+      },
+      "getAllListedAgents()": {
+        "notice": "获取所有上架的 Agents"
+      },
+      "recordUsage(uint256)": {
+        "notice": "记录 Agent 使用"
+      },
+      "registerAndListAgent(string,string,string,uint8,string,uint256)": {
+        "notice": "注册并上架 Agent"
+      },
+      "submitRating(uint256,uint8,string)": {
+        "notice": "提交评价"
+      },
+      "unlistAgent(uint256)": {
+        "notice": "下架 Agent"
+      },
+      "updateAgent(uint256,string,string,string,uint8,string,uint256)": {
+        "notice": "更新 Agent 信息"
+      }
+    },
+    "notice": "Agent 商店主合约，集成 EIP-8004 功能",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 8,
+        "contract": "contracts/AgentStore.sol:AgentStore",
+        "label": "identityRegistry",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_contract(IdentityRegistry)704"
+      },
+      {
+        "astId": 11,
+        "contract": "contracts/AgentStore.sol:AgentStore",
+        "label": "reputationRegistry",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_contract(ReputationRegistry)916"
+      },
+      {
+        "astId": 14,
+        "contract": "contracts/AgentStore.sol:AgentStore",
+        "label": "validationRegistry",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_contract(ValidationRegistry)1233"
+      },
+      {
+        "astId": 48,
+        "contract": "contracts/AgentStore.sol:AgentStore",
+        "label": "listings",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_mapping(t_uint256,t_struct(AgentListing)43_storage)"
+      },
+      {
+        "astId": 51,
+        "contract": "contracts/AgentStore.sol:AgentStore",
+        "label": "allListedAgents",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_array(t_uint256)dyn_storage"
+      },
+      {
+        "astId": 56,
+        "contract": "contracts/AgentStore.sol:AgentStore",
+        "label": "searchIndex",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_mapping(t_string_memory_ptr,t_array(t_uint256)dyn_storage)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_uint256)dyn_storage": {
+        "base": "t_uint256",
+        "encoding": "dynamic_array",
+        "label": "uint256[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_contract(IdentityRegistry)704": {
+        "encoding": "inplace",
+        "label": "contract IdentityRegistry",
+        "numberOfBytes": "20"
+      },
+      "t_contract(ReputationRegistry)916": {
+        "encoding": "inplace",
+        "label": "contract ReputationRegistry",
+        "numberOfBytes": "20"
+      },
+      "t_contract(ValidationRegistry)1233": {
+        "encoding": "inplace",
+        "label": "contract ValidationRegistry",
+        "numberOfBytes": "20"
+      },
+      "t_enum(RequestMethod)19": {
+        "encoding": "inplace",
+        "label": "enum AgentStore.RequestMethod",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_string_memory_ptr,t_array(t_uint256)dyn_storage)": {
+        "encoding": "mapping",
+        "key": "t_string_memory_ptr",
+        "label": "mapping(string => uint256[])",
+        "numberOfBytes": "32",
+        "value": "t_array(t_uint256)dyn_storage"
+      },
+      "t_mapping(t_uint256,t_struct(AgentListing)43_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct AgentStore.AgentListing)",
+        "numberOfBytes": "32",
+        "value": "t_struct(AgentListing)43_storage"
+      },
+      "t_string_memory_ptr": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_struct(AgentListing)43_storage": {
+        "encoding": "inplace",
+        "label": "struct AgentStore.AgentListing",
+        "members": [
+          {
+            "astId": 21,
+            "contract": "contracts/AgentStore.sol:AgentStore",
+            "label": "agentId",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 23,
+            "contract": "contracts/AgentStore.sol:AgentStore",
+            "label": "name",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 25,
+            "contract": "contracts/AgentStore.sol:AgentStore",
+            "label": "description",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 27,
+            "contract": "contracts/AgentStore.sol:AgentStore",
+            "label": "link",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 30,
+            "contract": "contracts/AgentStore.sol:AgentStore",
+            "label": "method",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_enum(RequestMethod)19"
+          },
+          {
+            "astId": 32,
+            "contract": "contracts/AgentStore.sol:AgentStore",
+            "label": "requestParams",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 34,
+            "contract": "contracts/AgentStore.sol:AgentStore",
+            "label": "price",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 36,
+            "contract": "contracts/AgentStore.sol:AgentStore",
+            "label": "owner",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_address"
+          },
+          {
+            "astId": 38,
+            "contract": "contracts/AgentStore.sol:AgentStore",
+            "label": "listed",
+            "offset": 20,
+            "slot": "7",
+            "type": "t_bool"
+          },
+          {
+            "astId": 40,
+            "contract": "contracts/AgentStore.sol:AgentStore",
+            "label": "listedAt",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 42,
+            "contract": "contracts/AgentStore.sol:AgentStore",
+            "label": "usageCount",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "320"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
