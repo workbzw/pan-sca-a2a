@@ -1,12 +1,15 @@
 //SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+
 /**
  * @title ValidationRegistry
  * @notice EIP-8004 验证注册表
  * @dev 管理 Agent 的验证、证明和争议
+ * @dev 使用 OpenZeppelin ReentrancyGuard 防止重入攻击
  */
-contract ValidationRegistry {
+contract ValidationRegistry is ReentrancyGuard {
     enum ValidationStatus {
         Pending,    // 待验证
         Approved,   // 已通过
@@ -70,13 +73,14 @@ contract ValidationRegistry {
      * @param proofURI 证明 URI
      * @param notes 验证备注
      * @return validationId 验证 ID
+     * @dev 使用 nonReentrant 防止重入攻击
      */
     function submitValidation(
         uint256 agentId,
         ValidationStatus status,
         string memory proofURI,
         string memory notes
-    ) public returns (uint256 validationId) {
+    ) public nonReentrant returns (uint256 validationId) {
         validationId = nextValidationId++;
         
         validations[validationId] = Validation({
@@ -99,8 +103,12 @@ contract ValidationRegistry {
      * @notice 更新验证状态
      * @param validationId 验证 ID
      * @param newStatus 新状态
+     * @dev 使用 nonReentrant 防止重入攻击
      */
-    function updateValidationStatus(uint256 validationId, ValidationStatus newStatus) public {
+    function updateValidationStatus(uint256 validationId, ValidationStatus newStatus) 
+        public 
+        nonReentrant 
+    {
         Validation storage validation = validations[validationId];
         require(validation.validator == msg.sender, "ValidationRegistry: Not validator");
         
@@ -113,8 +121,9 @@ contract ValidationRegistry {
      * @notice 对验证提出争议
      * @param validationId 验证 ID
      * @param reason 争议原因
+     * @dev 使用 nonReentrant 防止重入攻击
      */
-    function raiseDispute(uint256 validationId, string memory reason) public {
+    function raiseDispute(uint256 validationId, string memory reason) public nonReentrant {
         require(validations[validationId].timestamp > 0, "ValidationRegistry: Validation not found");
         require(disputes[validationId].disputer == address(0), "ValidationRegistry: Dispute exists");
         
@@ -135,8 +144,12 @@ contract ValidationRegistry {
      * @notice 解决争议
      * @param validationId 验证 ID
      * @param finalStatus 最终状态
+     * @dev 使用 nonReentrant 防止重入攻击
      */
-    function resolveDispute(uint256 validationId, ValidationStatus finalStatus) public {
+    function resolveDispute(uint256 validationId, ValidationStatus finalStatus) 
+        public 
+        nonReentrant 
+    {
         Dispute storage dispute = disputes[validationId];
         require(dispute.disputer != address(0), "ValidationRegistry: No dispute");
         require(!dispute.resolved, "ValidationRegistry: Already resolved");

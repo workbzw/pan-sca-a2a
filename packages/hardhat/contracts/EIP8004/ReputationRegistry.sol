@@ -1,12 +1,15 @@
 //SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+
 /**
  * @title ReputationRegistry
  * @notice EIP-8004 声誉注册表
  * @dev 管理 Agent 的声誉、评分和反馈
+ * @dev 使用 OpenZeppelin ReentrancyGuard 防止重入攻击
  */
-contract ReputationRegistry {
+contract ReputationRegistry is ReentrancyGuard {
     struct Feedback {
         address reviewer;        // 评价者地址
         uint8 rating;            // 评分 (1-5)
@@ -44,12 +47,13 @@ contract ReputationRegistry {
      * @param agentId Agent ID
      * @param rating 评分 (1-5)
      * @param comment 评价内容
+     * @dev 使用 nonReentrant 防止重入攻击
      */
     function submitFeedback(
         uint256 agentId,
         uint8 rating,
         string memory comment
-    ) public {
+    ) public nonReentrant {
         require(rating >= 1 && rating <= 5, "ReputationRegistry: Invalid rating");
         require(!hasReviewed[agentId][msg.sender], "ReputationRegistry: Already reviewed");
         

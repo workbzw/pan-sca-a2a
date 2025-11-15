@@ -58,11 +58,16 @@ const config: HardhatUserConfig = {
       url: "https://mainnet.rpc.buidlguidl.com",
       accounts: [deployerPrivateKey],
     },
-bscTestnet: {
-      url: `https://bnb-testnet.g.alchemy.com/v2/${providerApiKey}`,
+    bscTestnet: {
+      // 优先使用 Alchemy RPC（避免限流），可通过环境变量覆盖
+      url: process.env.BSC_TESTNET_RPC || 
+           `https://bnb-testnet.g.alchemy.com/v2/${providerApiKey}`,
       chainId: 97,
       accounts: [deployerPrivateKey],
       gasPrice: 10000000000, // 10 gwei
+      timeout: 300000, // 300 seconds (5 minutes) - 增加超时时间
+      httpHeaders: {},
+      // Alchemy 提供更高的请求限制，适合频繁部署
     },
     bsc: {
       url: `https://bnb-mainnet.g.alchemy.com/v2/${providerApiKey}`,

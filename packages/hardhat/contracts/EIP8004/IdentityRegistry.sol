@@ -1,12 +1,16 @@
 //SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+
 /**
  * @title IdentityRegistry
  * @notice EIP-8004 身份注册表
  * @dev 为每个 Agent 提供唯一的链上身份标识
+ * @dev 使用 OpenZeppelin Ownable 和 ReentrancyGuard 保证安全性
  */
-contract IdentityRegistry {
+contract IdentityRegistry is Ownable, ReentrancyGuard {
     struct AgentIdentity {
         address owner;           // Agent 所有者地址
         string metadataURI;      // IPFS 元数据 URI
@@ -23,6 +27,9 @@ contract IdentityRegistry {
     // 下一个 Agent ID
     uint256 private nextAgentId = 1;
     
+    // 构造函数
+    constructor() Ownable(msg.sender) {}
+
     // 事件
     event AgentRegistered(
         uint256 indexed agentId,
@@ -46,8 +53,13 @@ contract IdentityRegistry {
      * @notice 注册新的 Agent 身份
      * @param metadataURI IPFS 元数据 URI
      * @return agentId 新创建的 Agent ID
+     * @dev 使用 nonReentrant 防止重入攻击
      */
-    function registerAgent(string memory metadataURI) public returns (uint256 agentId) {
+    function registerAgent(string memory metadataURI) 
+        public 
+        nonReentrant 
+        returns (uint256 agentId) 
+    {
         agentId = nextAgentId++;
         
         identities[agentId] = AgentIdentity({
@@ -68,8 +80,12 @@ contract IdentityRegistry {
      * @notice 更新 Agent 元数据
      * @param agentId Agent ID
      * @param newMetadataURI 新的元数据 URI
+     * @dev 使用 nonReentrant 防止重入攻击
      */
-    function updateAgentMetadata(uint256 agentId, string memory newMetadataURI) public {
+    function updateAgentMetadata(uint256 agentId, string memory newMetadataURI) 
+        public 
+        nonReentrant 
+    {
         require(identities[agentId].owner == msg.sender, "IdentityRegistry: Not owner");
         require(identities[agentId].active, "IdentityRegistry: Agent inactive");
         
@@ -81,8 +97,9 @@ contract IdentityRegistry {
     /**
      * @notice 停用 Agent
      * @param agentId Agent ID
+     * @dev 使用 nonReentrant 防止重入攻击
      */
-    function deactivateAgent(uint256 agentId) public {
+    function deactivateAgent(uint256 agentId) public nonReentrant {
         require(identities[agentId].owner == msg.sender, "IdentityRegistry: Not owner");
         require(identities[agentId].active, "IdentityRegistry: Already inactive");
         

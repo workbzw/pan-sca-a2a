@@ -1,6 +1,9 @@
 //SPDX-License-Identifier: MIT
 pragma solidity >=0.8.0 <0.9.0;
 
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/Address.sol";
 import "./EIP8004/IdentityRegistry.sol";
 import "./EIP8004/ReputationRegistry.sol";
 import "./EIP8004/ValidationRegistry.sol";
@@ -9,28 +12,17 @@ import "./EIP8004/ValidationRegistry.sol";
  * @title AgentStore
  * @notice Agent 商店主合约，集成 EIP-8004 功能
  * @dev 提供完整的 Agent 注册、发现、评价和管理功能
+ * @dev 使用 OpenZeppelin Ownable, ReentrancyGuard 和 Address 库保证安全性
  */
-contract AgentStore {
+contract AgentStore is Ownable, ReentrancyGuard {
+    using Address for address payable;
     IdentityRegistry public identityRegistry;
     ReputationRegistry public reputationRegistry;
     ValidationRegistry public validationRegistry;
 
-    // 请求方式枚举
-    enum RequestMethod {
-        GET,
-        POST,
-        PUT,
-        DELETE
-    }
-
     struct AgentListing {
         uint256 agentId;           // Agent ID
-        string name;               // Agent 名称
-        string description;        // 简介
-        string link;               // 链接
-        RequestMethod method;       // 请求方式
-        string requestParams;      // 请求参数（JSON 字符串）
-        uint256 price;             // 价格（以 wei 为单位）
+        string agentCardLink;      // AgentCard 链接（所有信息从 Agent Card 获取）
         address owner;             // 所有者
         bool listed;               // 是否上架
         uint256 listedAt;          // 上架时间
@@ -50,9 +42,8 @@ contract AgentStore {
     // 事件
     event AgentListed(
         uint256 indexed agentId,
-        string name,
+        string agentCardLink,
         address indexed owner,
-        uint256 price,
         uint256 timestamp
     );
     
@@ -71,42 +62,32 @@ contract AgentStore {
         address _identityRegistry,
         address _reputationRegistry,
         address _validationRegistry
-    ) {
+    ) Ownable(msg.sender) {
+        require(_identityRegistry != address(0), "AgentStore: Invalid identity registry");
+        require(_reputationRegistry != address(0), "AgentStore: Invalid reputation registry");
+        require(_validationRegistry != address(0), "AgentStore: Invalid validation registry");
+        
         identityRegistry = IdentityRegistry(_identityRegistry);
         reputationRegistry = ReputationRegistry(_reputationRegistry);
         validationRegistry = ValidationRegistry(_validationRegistry);
     }
 
     /**
-     * @notice 注册并上架 Agent
-     * @param name Agent 名称
-     * @param description 简介
-     * @param link 链接
-     * @param method 请求方式
-     * @param requestParams 请求参数（JSON 字符串）
-     * @param price 价格（以 wei 为单位）
+     * @notice 注册并上架 Agent（只需要 AgentCard 链接）
+     * @param agentCardLink AgentCard 链接（所有信息从 Agent Card 获取）
      * @return agentId 新创建的 Agent ID
+     * @dev 使用 nonReentrant 防止重入攻击
      */
     function registerAndListAgent(
-        string memory name,
-        string memory description,
-        string memory link,
-        RequestMethod method,
-        string memory requestParams,
-        uint256 price
-    ) public returns (uint256 agentId) {
-        // 注册身份（使用链接作为 metadataURI）
-        agentId = identityRegistry.registerAgent(link);
+        string memory agentCardLink
+    ) public nonReentrant returns (uint256 agentId) {
+        // 注册身份（使用 agentCardLink 作为 metadataURI）
+        agentId = identityRegistry.registerAgent(agentCardLink);
         
         // 创建上架信息
         listings[agentId] = AgentListing({
             agentId: agentId,
-            name: name,
-            description: description,
-            link: link,
-            method: method,
-            requestParams: requestParams,
-            price: price,
+            agentCardLink: agentCardLink,
             owner: msg.sender,
             listed: true,
             listedAt: block.timestamp,
@@ -115,46 +96,33 @@ contract AgentStore {
         
         allListedAgents.push(agentId);
         
-        emit AgentListed(agentId, name, msg.sender, price, block.timestamp);
+        emit AgentListed(agentId, agentCardLink, msg.sender, block.timestamp);
         
         return agentId;
     }
 
     /**
-     * @notice 更新 Agent 信息
+     * @notice 更新 Agent 的 AgentCard 链接
      * @param agentId Agent ID
-     * @param name Agent 名称
-     * @param description 简介
-     * @param link 链接
-     * @param method 请求方式
-     * @param requestParams 请求参数
-     * @param price 价格
+     * @param agentCardLink 新的 AgentCard 链接
+     * @dev 使用 nonReentrant 防止重入攻击
      */
-    function updateAgent(
+    function updateAgentCardLink(
         uint256 agentId,
-        string memory name,
-        string memory description,
-        string memory link,
-        RequestMethod method,
-        string memory requestParams,
-        uint256 price
-    ) public {
+        string memory agentCardLink
+    ) public nonReentrant {
         require(listings[agentId].owner == msg.sender, "AgentStore: Not owner");
         require(listings[agentId].listed, "AgentStore: Not listed");
         
-        listings[agentId].name = name;
-        listings[agentId].description = description;
-        listings[agentId].link = link;
-        listings[agentId].method = method;
-        listings[agentId].requestParams = requestParams;
-        listings[agentId].price = price;
+        listings[agentId].agentCardLink = agentCardLink;
     }
 
     /**
      * @notice 下架 Agent
      * @param agentId Agent ID
+     * @dev 使用 nonReentrant 防止重入攻击
      */
-    function unlistAgent(uint256 agentId) public {
+    function unlistAgent(uint256 agentId) public nonReentrant {
         require(listings[agentId].owner == msg.sender, "AgentStore: Not owner");
         require(listings[agentId].listed, "AgentStore: Not listed");
         
@@ -163,15 +131,6 @@ contract AgentStore {
         emit AgentUnlisted(agentId, msg.sender);
     }
 
-    /**
-     * @notice 记录 Agent 使用
-     * @param agentId Agent ID
-     */
-    function recordUsage(uint256 agentId) public {
-        require(listings[agentId].listed, "AgentStore: Agent not listed");
-        listings[agentId].usageCount += 1;
-        emit AgentUsed(agentId, msg.sender, block.timestamp);
-    }
 
     /**
      * @notice 提交评价
@@ -196,21 +155,14 @@ contract AgentStore {
     }
 
     /**
-     * @notice 调用 Agent（支付费用并记录使用）
+     * @notice 记录 Agent 使用（价格从 Agent Card 获取，通过 PaymentSBT 合约处理）
      * @param agentId Agent ID
+     * @dev 使用 nonReentrant 防止重入攻击
+     * @dev 注意：价格支付通过 PaymentSBT 合约处理，这里只记录使用次数
      */
-    function callAgent(uint256 agentId) public payable {
+    function recordUsage(uint256 agentId) public nonReentrant {
         AgentListing storage listing = listings[agentId];
         require(listing.listed, "AgentStore: Agent not listed");
-        require(msg.value >= listing.price, "AgentStore: Insufficient payment");
-        
-        // 如果支付超过价格，退还多余部分
-        if (msg.value > listing.price) {
-            payable(msg.sender).transfer(msg.value - listing.price);
-        }
-        
-        // 将费用转给所有者
-        payable(listing.owner).transfer(listing.price);
         
         // 记录使用
         listing.usageCount += 1;
