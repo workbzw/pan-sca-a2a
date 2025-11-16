@@ -242,7 +242,7 @@ function HeroSection() {
           {/* 按钮 */}
           <div className="flex gap-4">
             <LinkWithParams
-              href="/home"
+              href="/agent-store/2"
               className="px-6 py-3 bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors"
             >
               Try it now!
